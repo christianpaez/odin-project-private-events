@@ -1,8 +1,15 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>Name:</strong>
   <%= @user.name %>
+  <strong>Events created:</strong>
+  <% @user.events.each do |event|%>
+  <%= event.description %>
+  <% end %>
+  <strong>Events Attended:</strong>
+  <% @user.attended_events.each do |event|%>
+  <%= event.description %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

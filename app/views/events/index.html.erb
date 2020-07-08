@@ -1,0 +1,5 @@
+<h1>Events#index</h1>
+<% @events.each do |event| %>
+    <p><%= event.description%></p>
+    <%= link_to 'show', controller: 'events', action: 'show', id: event %>
+<% end %>
