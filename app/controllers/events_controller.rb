@@ -12,7 +12,9 @@ class EventsController < ApplicationController
   def create
     @event = @current_user.events.build
     @event.description = event_params[:description]
-    puts @event.description
+    @event.location = event_params[:location]
+    @event.date = event_params[:date]
+    puts @event
     puts
     if @event.save(event_params)
       redirect_to users_path, flash: { notice: "Event Created!" }
@@ -27,6 +29,6 @@ class EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:description)
+    params.require(:event).permit(:description, :location, :date)
   end
 end
