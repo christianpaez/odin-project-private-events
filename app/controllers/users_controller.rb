@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :current_user, except: [:sign_in, :user_session, :new, :create]
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :user_session]
+  before_action :set_user, only: [:edit, :update, :destroy, :user_session]
 
   # GET /users
   # GET /users.json

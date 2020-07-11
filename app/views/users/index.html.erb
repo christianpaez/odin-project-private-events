@@ -1,27 +1,26 @@
-
-<h1>Users</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= link_to 'Create Event', new_event_user_path(user) %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New User', new_user_path %>
+<div class="container">
+  <div class="row justify-content-center">
+    <h1 class = "text-center">Users</h1>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-sm-6">
+      <ul class="list-group container-fluid">
+        <% @users.each do |user| %>
+          <li class="list-group-item d-flex">
+            <div class="my-auto mr-3">
+              <%= fa_icon "user-circle-o 5x" %>
+            </div>
+            <div>
+              <h3 class = "font-weight-bold"><%= user.name %></h3>
+              <h5 class = "text-dark">Attended Events: <%= user.attended_events.count%></h5>
+              <%= link_to 'View', user, class: "btn btn-primary" %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <br>
+</div>
+</div>
+</div>

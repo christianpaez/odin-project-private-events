@@ -1,0 +1,7 @@
+<h1 class = "text-center">Event details
+<% if @event.past? %>
+  <span class="badge badge-danger">Ended</span>
+<% else %>
+     <span class="badge badge-info">Coming up!</span>
+<% end %>
+</h1>

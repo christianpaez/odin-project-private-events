@@ -21,3 +21,5 @@
 //= require jquery-ui
 //= require_tree .
 //= require bootstrap-sprockets
+
+console.log("hi")

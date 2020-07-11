@@ -18,10 +18,13 @@
               <div class="col-sm-12  col-md-6 col-lg-4 d-flex justify-content-center mb-5">
                 <div class="card" style="width: 18rem;">
                   <div class="card-body">
-                    <h5 class="card-title">When: <%= event.date%></h5>
-                    <p>Where:<%= event.location%></p>
-                    <p>What:<%= event.description%></p>
-                    <%= link_to 'show', controller: 'events', action: 'show', id: event, class: "btn btn-primary" %>
+                    <h5 class="card-title"><strong>When: </strong><%= event.date.strftime("%m/%d/%Y") %></h5>
+                    <p><strong>What: </strong><%= event.description%></p>
+                    <p><strong>Where: </strong><%= event.location%></p>
+                    <p><strong>Attendes: </strong><%= event.attendes.count%></p>
+                    <div class="d-flex justify-content-center">
+                    <%= link_to 'show', {controller: 'events', action: 'show', id: event}, class: "btn btn-primary" %>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -29,10 +32,22 @@
           </div>
         </div>
         <div id="previousEvents" class="tab-pane fade">
-          <h2>Previous events</h2>
+          <h2 class="text-center">Previous events</h2>
+          <div class="row mt-4">
           <% @previous_events.each do |event| %>
-            <p><%= event.description%></p>
-            <%= link_to 'show', controller: 'events', action: 'show', id: event %>
+           <div class="col-sm-12  col-md-6 col-lg-4 d-flex justify-content-center mb-5">
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title"><strong>When: </strong><%= event.date.strftime("%m/%d/%Y") %></h5>
+                    <p><strong>What: </strong><%= event.description%></p>
+                    <p><strong>Where: </strong><%= event.location%></p>
+                    <p><strong>Attendes: </strong><%= event.attendes.count%></p>
+                    <div class="d-flex justify-content-center">
+                    <%= link_to 'show', {controller: 'events', action: 'show', id: event}, class: "btn btn-primary" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
           <% end %>
         </div>
       </div>

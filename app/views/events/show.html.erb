@@ -1,9 +1,51 @@
-<h1>Events#show</h1>
-<span>description: <%= @event.description%></span>
-<span>creator: <%= @event.creator["name"]%></span>
-<h3>Attendes:</h3>
-<% @event.attendes.each do |attende| %>
-  <span>attende: <%= attende["name"]%></span>
+<div class = "container">
+<div>
+<%= render 'title' %>
+</div>
+<div class = "row">
+<div class = "col-12">
+<ul class="list-unstyled">
+  <li class="media my-4">
+    <div class="media-body">
+      <h5 class="mt-0 mb-1"><strong>Creator: </strong><%= @event.creator["name"]%></h5>
+    </div>
+  </li>
+  <li class="media">
+    <div class="media-body">
+      <h5 class="mt-0 mb-1"><strong>Description:</strong></h5>
+      <%= @event.description %>
+    </div>
+  </li>
+  <li class="media my-4">
+    <div class="media-body">
+      <h5 class="mt-0 mb-1"><strong>Location: </strong><%= @event.location%></h5>
+    </div>
+  </li>
+  <li class="media my-4">
+    <div class="media-body">
+      <h5 class="mt-0 mb-1"><strong>Date: </strong> <%= @event.date.strftime("%m/%d/%Y") %></h5>
+    </div>
+  </li>
+</ul>
+<div class = "row justify-content-center">
+<div class = "col-sm-6">
+<h3 class = "text-left">Attendes</h3>
+<ul class="list-group">
+<% if @event.attendes.size > 0 %>
+  <% @event.attendes.each do |attende| %>
+  <li class="list-group-item"><%= attende.name%></li>
+  <% end %>
+<% else %>
+  <p>This event has no attendes =(</p>
 <% end %>
+</ul>
+<div class="d-flex justify-content-center">
+<%= link_to 'Back to events', events_path, class: "btn btn-secondary mt-4" %>
+</div>
+</div>
 
-<%= link_to 'Back to events', events_path %>
+</div>
+
+</div>
+</div>
+</div>
