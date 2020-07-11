@@ -9,46 +9,36 @@
 # faker gem
 require 'faker'
 
+UserEvent.destroy_all
 User.destroy_all
 Event.destroy_all
-UserEvent.destroy_all
 
-# create future events
+2.times do
+    user = User.new(
+        name: Faker::Name.name 
+    )
+    user.save
 
-user_future_events = User.new(
-    name: Faker::Name.name 
-)
-user_future_events.save
+    # future events
+    5.times do
+        # user: creator
+        event = user.events.build
+        event.location = Faker::Address.full_address
+        event.description = Faker::Lorem.sentence
+        event.date = Faker::Date.between(from: '2020-08-01', to: '2020-08-30')
+        event.save
+    end
 
-5.times do
-    # user: creator
-    event = user_future_events.events.build
-    event.location = Faker::Address.full_address
-    event.description = Faker::Lorem.sentence
-    event.date = Faker::Date.between(from: '2020-08-01', to: '2020-08-30')
-    event.save
-
-    # Event.create(
-    #     location: Faker::Address.full_address,
-    #     description: Faker::Lorem.sentence,
-    #     date: Faker::Date.between(from: '2020-08-01', to: '2020-08-30')
-    # )
-end
-
-# create past events
-
-user_past_events = User.new(
-    name: Faker::Name.name 
-)
-user_past_events.save
-
-5.times do
-    # user: creator
-    event = user_past_events.events.build
-    event.location = Faker::Address.full_address
-    event.description = Faker::Lorem.sentence
-    event.date = Faker::Date.between(from: '2020-06-01', to: '2020-06-30')
-    event.save
+    #past events
+    5.times do
+        # user: creator
+        event = user.events.build
+        event.location = Faker::Address.full_address
+        event.description = Faker::Lorem.sentence
+        event.date = Faker::Date.between(from: '2020-06-01', to: '2020-06-30')
+        event.save
+    end
+    
 end
 
 # create users: attendes - for past events

@@ -1,7 +1,8 @@
 class EventsController < ApplicationController
   before_action :current_user
   def index
-    @events = Event.all
+    @upcoming_events = Event.upcoming_events
+    @previous_events = Event.previous_events
   end
 
   def new

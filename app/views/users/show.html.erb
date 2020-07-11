@@ -3,8 +3,13 @@
   <strong>Name:</strong>
   <%= @user.name %>
   <strong>Events created:</strong>
-  <% @user.events.each do |event|%>
+  <h5>Future Events</h5>
+  <% @upcoming_events.each do |event|%>
   <%= event.description %>
+  <% end %>
+  <h5>Past Events</h5>
+  <% @previous_events.each do |event| %>
+    <%= event.description%>
   <% end %>
   <strong>Events Attended:</strong>
   <% @user.attended_events.each do |event|%>

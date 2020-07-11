@@ -1,5 +1,14 @@
-<h1>New User</h1>
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-md-auto">
+
+<h1 class="text-center">New User</h1>
 
 <%= render 'form', user: @user %>
+<div class="d-flex justify-content-center mt-3">
+          <%= link_to "Log in", sign_in_users_path %>
+        </div>
+    </div>
+  </div>
+</div>
 
-<%= link_to 'Back', users_path %>

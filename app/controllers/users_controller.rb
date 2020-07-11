@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :current_user
+  before_action :current_user, except: [:sign_in, :user_session, :new, :create]
   before_action :set_user, only: [:show, :edit, :update, :destroy, :user_session]
 
   # GET /users
@@ -11,6 +11,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = current_user
+    @upcoming_events = @user.upcoming_events
+    @previous_events = @user.previous_events
   end
 
   # GET /users/new
@@ -26,16 +29,12 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
-    respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
+        cookies[:user_id] = @user.id
+        redirect_to events_path, flash: { info: 'User was successfully created.'} 
       else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        render :new 
       end
-    end
   end
 
   # PATCH/PUT /users/1
@@ -43,7 +42,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user, info: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -57,7 +56,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to users_url, info: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,18 +68,22 @@ class UsersController < ApplicationController
   # POST /users/sign_in/:user_id
   def user_session
     cookies[:user_id] = @user.id
-    redirect_to users_path, flash: { notice: "Welcome back #{@user.name}!" }
-    
+    redirect_to events_path, flash: { info: "Welcome back #{@user.name}!" }
+  end
+
+  # DELETE /users/:id/logout/
+  def destroy_session!
+    cookies.delete(:user_id)
+    redirect_to sign_in_users_path, flash: {info: "Succesfully Logged Out!"}
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      begin
-        @user = User.find(params[:id])
-      rescue ActiveRecord::RecordNotFound
-        redirect_to sign_in_users_path, flash: { alert: "User not found, please check your request and try again." }
-      end
+        @user = User.find_by name: params[:name]
+        unless @user
+          redirect_to sign_in_users_path, flash: { warning: "User not found, please check your request and try again." }
+        end
     end
 
     # Only allow a list of trusted parameters through.

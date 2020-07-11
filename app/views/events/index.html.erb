@@ -1,5 +1,41 @@
-<h1>Events#index</h1>
-<% @events.each do |event| %>
-    <p><%= event.description%></p>
-    <%= link_to 'show', controller: 'events', action: 'show', id: event %>
-<% end %>
+ 
+<div class="container">
+  <div class="d-grid justify-content-center">
+    <h2 class="text-center">Events</h2>
+    <p>Check out the latest events!</p>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <ul class="nav nav-pills justify-content-center">
+        <li class="nav-item active"><a class="nav-link active" data-toggle="tab" href="#upcomingEvents">Upcoming Events</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#previousEvents">Previous Events</a></li>
+      </ul>
+      <div class="tab-content">
+        <div id="upcomingEvents" class="tab-pane fade in active show">
+          <h2 class="text-center">Upcoming events</h2>
+          <div class="row mt-4">
+            <% @upcoming_events.each do |event| %>
+              <div class="col-sm-12  col-md-6 col-lg-4 d-flex justify-content-center mb-5">
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">When: <%= event.date%></h5>
+                    <p>Where:<%= event.location%></p>
+                    <p>What:<%= event.description%></p>
+                    <%= link_to 'show', controller: 'events', action: 'show', id: event, class: "btn btn-primary" %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div id="previousEvents" class="tab-pane fade">
+          <h2>Previous events</h2>
+          <% @previous_events.each do |event| %>
+            <p><%= event.description%></p>
+            <%= link_to 'show', controller: 'events', action: 'show', id: event %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

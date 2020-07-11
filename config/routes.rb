@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     member do
       get 'new_event', controller: 'events', action: 'new'
       post 'create_event', controller: 'events', action: 'create'
+      delete 'logout', controller: 'users', action: 'destroy_session!'
     end
     collection do
       get 'sign_in'

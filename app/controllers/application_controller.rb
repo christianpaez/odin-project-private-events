@@ -5,8 +5,10 @@ class ApplicationController < ActionController::Base
             begin
                 @current_user = User.find(user_id)
             rescue ActiveRecord::RecordNotFound
-                redirect_to new_user_path, flash: {alert: "Can`t find user, please create one!"}                
+                redirect_to new_user_path, flash: {warning: "User not found, Create a user!"}                
             end
+        else
+            redirect_to sign_in_users_path, flash: {info: "Please Login!"}
         end
         
     end

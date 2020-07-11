@@ -24,6 +24,17 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 # Faker
 gem 'faker'
+# bootstrap
+gem 'bootstrap', '~> 4.5.0'
+
+# jquery
+gem 'jquery-rails'
+gem 'jquery-ui-rails', '~> 5.0', '>= 5.0.5'
+gem 'font-awesome-rails'
+
+# moment js
+gem 'momentjs-rails', '~> 2.17', '>= 2.17.1'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
