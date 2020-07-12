@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :current_user
+  before_action :set_event, only: [:add_attendant, :remove_attendant]
   def index
     @upcoming_events = Event.upcoming_events
     @previous_events = Event.previous_events
@@ -15,8 +16,6 @@ class EventsController < ApplicationController
     @event.description = event_params[:description]
     @event.location = event_params[:location]
     @event.date = event_params[:date]
-    puts @event
-    puts
     if @event.save(event_params)
       redirect_to users_path, flash: { notice: "Event Created!" }
     else
@@ -25,6 +24,26 @@ class EventsController < ApplicationController
   end
 
   def show
+    @event = Event.find(params[:id])
+  end
+
+  def add_attendant
+    if @event.attendes.push(@current_user)
+      redirect_to event_path(@event), flash: { info: "Attende Added!"}
+    else
+      redirect_to event_path(@event), flash: { warning: "Cannot add attende!"}
+    end
+  end
+
+  def remove_attendant
+    if @event.attendes.delete(@current_user.id)
+      redirect_to event_path(@event), flash: { info: "Attende removed!"}
+    else
+      redirect_to event_path(@event), flash: { warning: "Cannot remove attende!"}
+    end
+  end
+
+  def set_event
     @event = Event.find(params[:id])
   end
 

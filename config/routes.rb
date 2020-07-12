@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
   
-  root 'users#index'
-  get 'events', to: "events#index"
-  get 'events/:id', to: "events#show"
+  root 'users#sign_in'
+  # get 'events', to: "events#index"
+
+  resources :events, only: [:index, :show] do
+    member do
+      post 'events/:id/add_attendant', to: "events#add_attendant"
+      delete 'events/:id/remove_attendant', to: "events#remove_attendant"
+    end
+  end
   resources :users do
     member do
       get 'new_event', controller: 'events', action: 'new'

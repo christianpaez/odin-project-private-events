@@ -11,9 +11,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = current_user
-    @upcoming_events = @user.upcoming_events
-    @previous_events = @user.previous_events
+    @user = User.find(params[:id])
+    @upcoming_attended_events = @user.upcoming_attended_events
+    @previous_attended_events = @user.previous_attended_events
   end
 
   # GET /users/new
@@ -63,6 +63,7 @@ class UsersController < ApplicationController
 
   # GET /users/sign_in
   def sign_in
+    @test_user_name = User.first.name
   end
 
   # POST /users/sign_in/:user_id

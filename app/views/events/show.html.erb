@@ -2,6 +2,14 @@
 <div>
 <%= render 'title' %>
 </div>
+<% unless @event.past? %>
+  <% if @event.attendant?(@current_user) %>
+  <%= link_to 'Unattend Event', {:action => :remove_attendant}, :method => :delete, data: { disable_with: "Please wait..." }, class: "btn btn-danger mt-4" %>
+  <% else %>
+    <%= link_to 'Attend Event', {:action => :add_attendant}, :method => :post, data: { disable_with: "Please wait..." }, class: "btn btn-primary mt-4" %>
+  <% end %>
+<% end %>
+
 <div class = "row">
 <div class = "col-12">
 <ul class="list-unstyled">

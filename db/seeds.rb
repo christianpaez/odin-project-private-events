@@ -37,27 +37,38 @@ Event.destroy_all
         event.description = Faker::Lorem.sentence
         event.date = Faker::Date.between(from: '2020-06-01', to: '2020-06-30')
         event.save
+
+        # add attendees to past event
+        5.times do
+            attende = User.create(
+                name: Faker::Name.name 
+            )
+            UserEvent.create(
+                user_id: attende.id,
+                event_id: event.id
+            )
+        end
     end
     
 end
 
 # create users: attendes - for past events
 
-date = Date.parse("2020-06-05")
-start_date = date.at_beginning_of_month
-end_date = date.end_of_month
-past_event = Event.where(date: start_date..end_date).order("RANDOM()").first
-3.times do
-    user = User.create(
-        name: Faker::Name.name 
-    )
-    UserEvent.create(
-        user_id: user.id,
-        event_id: past_event.id
-    )
-end
+# date = Date.parse("2020-06-05")
+# start_date = date.at_beginning_of_month
+# end_date = date.end_of_month
+# past_event = Event.where(date: start_date..end_date).order("RANDOM()").first
+# 3.times do
+#     user = User.create(
+#         name: Faker::Name.name 
+#     )
+#     UserEvent.create(
+#         user_id: user.id,
+#         event_id: past_event.id
+#     )
+# end
 
-# create users: attendes - for past events
+# create users: attendes - for future events
 
 date = Date.parse("2020-08-05")
 start_date = date.at_beginning_of_month

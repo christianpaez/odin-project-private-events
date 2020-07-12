@@ -8,6 +8,14 @@ class User < ApplicationRecord
         events.where('date < ?', Date.today)
     end
 
+    def upcoming_attended_events
+        attended_events.where('date > ?', Date.today)
+    end
+
+    def previous_attended_events
+        attended_events.where('date < ?', Date.today)
+    end
+
     validates :name, presence: true, uniqueness: true
     has_many :events 
     has_many :user_events

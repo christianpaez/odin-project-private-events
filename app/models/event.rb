@@ -4,8 +4,17 @@ class Event < ApplicationRecord
       date.past?
     end
 
-    scope :upcoming_events, -> {where('date > ?', Date.today)}
-    scope :previous_events, -> {where('date < ?', Date.today)}
+    def attendant?(user)
+      puts attendes.where(id: user)
+      if attendes.where(id: user).count > 0
+        true
+      else
+        false
+      end
+    end
+
+    scope :upcoming_events, -> {where('date > ?', Date.today).order(date: :desc)}
+    scope :previous_events, -> {where('date < ?', Date.today).order(date: :desc)}
 
     validates :description, presence: true
     validates :location, presence: true
