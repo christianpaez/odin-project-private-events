@@ -9,7 +9,7 @@ default: &default
 
 development:
   <<: *default
-  database: private-events_development
+  database: private_events_development
   host: db
   password: password
   # The specified database role being used to connect to postgres.
@@ -69,5 +69,5 @@ test:
 #
 production:
   <<: *default
-  database: private-events_production
+  database: private_events_production
   host: <%= ENV['DATABASE_URL'] %>

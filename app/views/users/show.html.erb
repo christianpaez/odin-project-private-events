@@ -17,7 +17,11 @@
           <ul class="list-group">
             <% if @upcoming_attended_events.count > 0 %>
               <% @upcoming_attended_events.each do |event| %>
-                <li class="list-group-item"><%= event.description%></li>
+                <li class="list-group-item d-inline-flex"><%= event.description%>
+                <span class="ml-auto text-right">
+                <%= link_to 'Go to event', event_path(event) %>
+                </span>
+                </li>
               <% end %>
             <% else %>
               <p>This user has no upcoming events =(</p>

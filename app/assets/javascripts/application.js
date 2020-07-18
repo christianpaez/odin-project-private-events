@@ -22,4 +22,3 @@
 //= require_tree .
 //= require bootstrap-sprockets
 
-console.log("hi")
